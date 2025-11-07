@@ -1,0 +1,163 @@
+Ticket booking
+package hi;
+import java.util.Scanner;
+
+public class exp1q1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int basePrice = 200;
+
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt();
+
+        System.out.print("Enter day of booking (Mon/Tue/Wed/Thu/Fri/Sat/Sun): ");
+        String day = sc.next();
+
+        double price = basePrice;
+
+        // Age-based discount
+        if (age < 5) {
+            price = 0;
+        } else if (age >= 5 && age <= 18) {
+            price *= 0.60;
+        } else if (age > 60) {
+            price *= 0.70;
+        }
+
+        // Weekday discount (Mon-Fri -> 10% off)
+        if (day.equalsIgnoreCase("Mon") ||
+            day.equalsIgnoreCase("Tue") ||
+            day.equalsIgnoreCase("Wed") ||
+            day.equalsIgnoreCase("Thu") ||
+            day.equalsIgnoreCase("Fri")) {
+            price *= 0.90;
+        }
+
+        System.out.println("Ticket Price: ₹" + price);
+        sc.close();
+    }
+}
+Electricity bill
+package hi;
+import java.util.Scanner;
+
+public class exp1q2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] usage = new int[12];
+        int total = 0;
+
+        for (int i = 0; i < 12; i++) {
+            System.out.print("Enter units for month " + (i + 1) + ": ");
+            usage[i] = sc.nextInt();
+            total += usage[i];
+        }
+
+        double average = total / 12.0;
+        System.out.println("Total Units: " + total);
+        System.out.println("Average Monthly Usage: " + average);
+
+        if (average > 500) {
+            System.out.println("High Consumption Alert!");
+        }
+        sc.close();
+    }
+}
+Simple ATM
+package hi;
+import java.util.Scanner;
+
+public class exp1q3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double balance = 10000;
+        int choice;
+
+        do {
+            System.out.println("\n--- ATM Menu ---");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Current Balance: ₹" + balance);
+                    break;
+
+                case 2:
+                    System.out.print("Enter amount to deposit: ₹");
+                    double deposit = sc.nextDouble();
+                    if (deposit > 0) {
+                        balance += deposit;
+                        System.out.println("Deposit Successful!");
+                    } else {
+                        System.out.println("Enter a positive amount.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Enter amount to withdraw: ₹");
+                    double withdraw = sc.nextDouble();
+                    if (withdraw > 0 && withdraw <= balance) {
+                        balance -= withdraw;
+                        System.out.println("Withdrawal Successful!");
+                    } else if (withdraw > balance) {
+                        System.out.println("Insufficient Balance!");
+                    } else {
+                        System.out.println("Enter a positive amount.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Thank you for using the ATM!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        } while (choice != 4);
+
+        sc.close();
+    }
+}
+Random number guessing game
+package hi;
+import java.util.Scanner;
+import java.util.Random;
+
+public class exp1q4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+
+        int number = rand.nextInt(100) + 1;
+        int guess = -1;
+        int attempts = 0;
+        final int maxAttempts = 5;
+
+        System.out.println("Guess the number between 1 and 100 (You have " + maxAttempts + " attempts):");
+
+        while (guess != number && attempts < maxAttempts) {
+            System.out.print("Enter your guess: ");
+            guess = sc.nextInt();
+            attempts++;
+
+            if (guess > number) {
+                System.out.println("Too High");
+            } else if (guess < number) {
+                System.out.println("Too Low");
+            } else {
+                System.out.println("🎉 Correct Guess!");
+            }
+        }
+
+        if (guess != number) {
+            System.out.println("Out of attempts! The number was: " + number);
+        }
+
+        sc.close();
+    }
+}
